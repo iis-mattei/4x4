@@ -1,5 +1,5 @@
-#include <4x4Motors>
-#include <4x4Sensors>
+#include <Motors.h>
+#include <Sensors.h>
 
 #define S_START 1
 #define S_FORWARD 2
@@ -13,8 +13,8 @@ int status = S_START;
 void setup() {
   Serial.begin(9600);
   Serial.println("Avvio del robot...");
-  4x4Motors motors = new 4x4Motors();
-  4x4Sensors sensors = new 4x4Sensors();
+  Motors motors = new Motors();
+  Sensors sensors = new Sensors();
 }
 
 void loop() {
@@ -46,5 +46,3 @@ void loop() {
   	}
   }
 }
-
-
