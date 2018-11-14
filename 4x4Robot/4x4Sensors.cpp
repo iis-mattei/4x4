@@ -2,6 +2,7 @@
 	colorSensorL = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_24MS, TCS34725_GAIN_1X);
 	colorSensorR = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_24MS, TCS34725_GAIN_1X);
 	colorSensorC = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_24MS, TCS34725_GAIN_1X);	
+	Wire.begin();
 }
 char 4x4Sensors::getColorLeft() {
 	tcaSelect(CSLAddr);
