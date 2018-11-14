@@ -1,6 +1,5 @@
 #include <Wire.h>
-#include "Adafruit_TCS34725.h"
-#include <TCS34725_Color_Sensor.h>
+#include <Adafruit_TCS34725.h>
 
 #define TCAADDR 0x70
 #define CSLAddr 2
@@ -11,9 +10,13 @@ const char COL_RED='r', COL_GREEN='g', COL_WHITE='w', COL_BLACK='b', COL_SILVER=
 
 class Sensors {
 	public :
+		Sensors();
 		char getColorRight();
 		char getColorLeft();
 		char getColorCenter();
 	private :
 		Adafruit_TCS34725 colorSensorL, colorSensorR, colorSensorC;
-}
+		void tcaSelect(uint8_t addr);
+		char getColorID(int colors[]);
+		char ReadColorSensor(Adafruit_TCS34725& colorSensor);
+};

@@ -12,11 +12,14 @@
 
 class Motors {
 	public :
+		Motors();
 		void travel(int speed, float dist);
 		void travel(int speed);
-		void spin(int speed, int dir, int arc);
+		void spin(int speed, int dir, float arc);
 		void spin(int speed, int dir);
 		void arc(int ext_speed, float radius, float arc);
 		void arc(int ext_speed, float radius);
 		void stop();
-}
+	private :
+		EVShield evshield;
+};

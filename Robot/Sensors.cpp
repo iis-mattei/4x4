@@ -1,3 +1,5 @@
+#include "Sensors.h"
+
 Sensors::Sensors() {
 	colorSensorL = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_24MS, TCS34725_GAIN_1X);
 	colorSensorR = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_24MS, TCS34725_GAIN_1X);
@@ -7,26 +9,26 @@ Sensors::Sensors() {
 char Sensors::getColorLeft() {
 	tcaSelect(CSLAddr);
 	delay(10);
-	return ReadColorSensor(colorSensorL);
+	return this->ReadColorSensor(colorSensorL);
 }
 char Sensors::getColorRight() {
 	tcaSelect(CSRAddr);
 	delay(10);
-	return ReadColorSensor(colorSensorR);
+	return this->ReadColorSensor(colorSensorR);
 }
 char Sensors::getColorCenter() {
 	tcaSelect(CSCAddr);
 	delay(10);
-	return ReadColorSensor(colorSensorC);
+	return this->ReadColorSensor(colorSensorC);
 }
 
-void tcaSelect(uint8_t addr) {
+void Sensors::tcaSelect(uint8_t addr) {
   Wire.beginTransmission(TCAADDR);
   Wire.write(1 << addr);
   Wire.endTransmission();
 }
 
-char getColorID(int colors[]) {
+char Sensors::getColorID(int colors[]) {
     const int RED=0, GREEN=1, BLUE=2;
     const int Red_min[] = {230, 40, 10} , Red_max[] = {350,90, 70};
     const int White_min[] = {130, 130, 130}, White_max[] = {350 ,350, 350};
@@ -58,7 +60,7 @@ char getColorID(int colors[]) {
 		return COL_UNKNOWN; 
 }
 
-char ReadColorSensor(String tag, Adafruit_TCS34725& colorSensor) {
+char Sensors::ReadColorSensor(Adafruit_TCS34725& colorSensor) {
   uint16_t clear, red, green, blue;
   int colors[3];
 
@@ -66,5 +68,5 @@ char ReadColorSensor(String tag, Adafruit_TCS34725& colorSensor) {
   colors[0] = red;
   colors[1] = green;
   colors[2] = blue;
-  return getColorID(colors);
+  return this->getColorID(colors);
 }
