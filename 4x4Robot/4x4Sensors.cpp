@@ -28,7 +28,6 @@ void tcaSelect(uint8_t addr) {
 
 char getColorID(int colors[]) {
     const int RED=0, GREEN=1, BLUE=2;
-    const char COL_RED='r', COL_GREEN='g', COL_WHITE='w', COL_BLACK='b', COL_SILVER='s', COL_UNKNOWN='u';
     const int Red_min[] = {230, 40, 10} , Red_max[] = {350,90, 70};
     const int White_min[] = {130, 130, 130}, White_max[] = {350 ,350, 350};
     const int Green_min[] = {40, 140, 30}, Green_max[] = {90, 250, 100};

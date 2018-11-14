@@ -7,6 +7,8 @@
 #define CSRAddr 5
 #define CSCAddr 4
 
+const char COL_RED='r', COL_GREEN='g', COL_WHITE='w', COL_BLACK='b', COL_SILVER='s', COL_UNKNOWN='u';
+
 class 4x4Sensors {
 	public :
 		char getColorRight();
