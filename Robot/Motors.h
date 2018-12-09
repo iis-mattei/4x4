@@ -17,8 +17,10 @@ class Motors {
 		void travel(int speed);
 		void spin(int speed, int dir, float arc);
 		void spin(int speed, int dir);
+		void spinC(int speed, int dir, float coeff);
 		void arc(int ext_speed, float radius, float arc);
 		void arc(int ext_speed, float radius);
+		void spArc(int ext_speed, int dir);
 		void stop();
 	private :
 		EVShield evshield;

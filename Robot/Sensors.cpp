@@ -30,10 +30,26 @@ void Sensors::tcaSelect(uint8_t addr) {
 
 char Sensors::getColorID(int colors[]) {
     const int RED=0, GREEN=1, BLUE=2;
+    const int blackMax = 120;
+    const int whiteMax = 200;
+    const float greenMultiplier = 1.7;
+    float brightness = (colors[RED] + colors[GREEN] + colors[BLUE])/3;
+    if(brightness < blackMax) {
+    	if(colors[GREEN] > greenMultiplier * (colors[RED]+colors[BLUE])/2) {
+    		return COL_GREEN;
+    	} else {
+    		return COL_BLACK;
+    	}
+    } else if(brightness < whiteMax) {
+    	return COL_WHITE;
+    } else {
+    	return COL_SILVER;
+    }
+    /*
     const int Red_min[] = {230, 40, 10} , Red_max[] = {350,90, 70};
-    const int White_min[] = {130, 130, 130}, White_max[] = {350 ,350, 350};
-    const int Green_min[] = {40, 140, 30}, Green_max[] = {90, 250, 100};
-    const int Black_min[] = {0, 0, 0}, Black_max[] = {75, 75, 75};
+    const int White_min[] = {120, 120, 120}, White_max[] = {200 ,350, 350};
+    const int Green_min[] = {40, 70, 30}, Green_max[] = {50, 82, 50};
+    const int Black_min[] = {0, 0, 0}, Black_max[] = {120, 120, 120};
     const int Silver_min[] = {350, 350, 350}, Silver_max[] = {1000, 1000, 1000};
 	// se i valori sono compresi nel cuboide di uno dei colori ....
 	if (colors[RED]>=Red_min[RED] && colors[RED]<Red_max[RED] &&
@@ -57,7 +73,7 @@ char Sensors::getColorID(int colors[]) {
 	colors[BLUE]>=Silver_min[BLUE] && colors[BLUE]<Silver_max[BLUE]) 
 		return COL_SILVER; 
 	else
-		return COL_UNKNOWN; 
+		return COL_UNKNOWN; */
 }
 
 char Sensors::ReadColorSensor(Adafruit_TCS34725& colorSensor) {
