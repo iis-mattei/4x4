@@ -7,8 +7,8 @@
 #define S_FORWARD 2
 #define S_TURN_LEFT 3
 #define S_TURN_RIGHT 4
-#define SPEED_STD 25
-#define SPEED_RED 20
+#define SPEED_STD 20
+#define SPEED_RED 15
 
 int status = S_START;
 Motors *motors;
@@ -17,7 +17,7 @@ char colL, colC, colR;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Avvio del robot...");  
+  Serial.println("Avvio del robot...");
   //Wire.begin();
   motors = new Motors();
   sensors = new Sensors();
@@ -25,14 +25,53 @@ void setup() {
 
 void loop() {
   Serial.println(status);
-  colL = sensors->getColorLeft();
-  colR = sensors->getColorRight();
-  
-  if(status == S_START) {
+  switch (status) {
+    colL = sensors->getColorLeft();
+    colR = sensors->getColorRight();
+  case S_START:
+    colC = sensors->getColorCenter();
+    if(colL == COL_WHITE && colC == COL_BLACK && colR == COL_WHITE) {	// Vai dritto
+      status = S_FORWARD;
+      motors->travel(SPEED_STD);
+      Serial.println(status);
+    }
+    break;
+  case S_FORWARD:
+    if(colL == COL_WHITE && colR == COL_BLACK) {	// Inizia curva a destra
+      status = S_TURN_RIGHT;
+      motors->spArc(SPEED_RED, -1);
+    } else if(colL == COL_BLACK && colR == COL_WHITE) {	// Inizia curva a sinistra
+      status = S_TURN_LEFT;
+      motors->spArc(SPEED_RED, 1);
+    }
+    Serial.println(status);
+    break;
+  case S_TURN_RIGHT:
+    if(colL == COL_WHITE && colR == COL_BLACK) {  // Inizia ad andare dritto
+      status = S_FORWARD;
+      motors->travel(SPEED_STD);
+    }
+    Serial.println(status);
+    break;
+  case S_TURN_LEFT:
+    if(colL == COL_WHITE && colR == COL_BLACK) {  // Inizia ad andare dritto
+      status = S_FORWARD;
+      motors->travel(SPEED_STD);
+    }
+    Serial.println(status);
+    break;
+
+
+}
+
+
+}
+
+/*  if(status == S_START) {
     colC = sensors->getColorCenter();
   	if(colL == COL_WHITE && colC == COL_BLACK && colR == COL_WHITE) {	// Vai dritto
   		status = S_FORWARD;
-  		motors->travel(SPEED_STD); 
+  		motors->travel(SPEED_STD);
   	}
   } else if(status == S_FORWARD) {  // Sta andando dritto
   	if(colL == COL_WHITE && colR == COL_BLACK) {	// Inizia curva a destra
@@ -52,5 +91,4 @@ void loop() {
       status = S_FORWARD;
       motors->travel(SPEED_STD);
     }
-  }
-}
+  }*/

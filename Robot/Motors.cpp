@@ -41,19 +41,19 @@ void Motors::spinC(int speed, int dir, float coeff) {
 }
 
 void Motors::arc(int ext_speed, float radius, float arc) {
-	
+
 }
 
 void Motors::arc(int ext_speed, float radius) {
-	
+
 }
 
 void Motors::spArc(int ext_speed, int dir) {
 	if(dir == 1) {
 		evshield.bank_b.motorRunUnlimited(SH_Motor_1, SH_Direction_Reverse, -ext_speed);
-    	evshield.bank_b.motorRunUnlimited(SH_Motor_2, SH_Direction_Reverse, ext_speed/4);
+    	evshield.bank_b.motorRunUnlimited(SH_Motor_2, SH_Direction_Reverse, ext_speed/3);
 	} else {
-		evshield.bank_b.motorRunUnlimited(SH_Motor_1, SH_Direction_Reverse, ext_speed/4);
+		evshield.bank_b.motorRunUnlimited(SH_Motor_1, SH_Direction_Reverse, ext_speed/3);
     	evshield.bank_b.motorRunUnlimited(SH_Motor_2, SH_Direction_Reverse, -ext_speed);
 	}
 }
